@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
+    <title>应用下载</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+
+            color: #111827;
+        }
+
+        .container {
+            max-width: 420px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 24px 22px 22px;
+            background: #ffffff;
+            min-height: 100vh;
+            min-height: 100dvh;
+        }
+
+        .app-icon {
+            width: 88px;
+            height: 88px;
+            border-radius: 20px;
+            margin: 0 auto 16px;
+            overflow: hidden;
+            background: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .app-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .app-icon-placeholder {
+            font-size: 42px;
+        }
+
+        .app-name {
+            font-size: 22px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 6px;
+            text-align: center;
+        }
+
+        .app-version {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 14px;
+            text-align: center;
+        }
+
+        .app-meta {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-size: 12px;
+            color: #4b5563;
+        }
+
+        .meta-item {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .meta-label {
+            color: #9ca3af;
+            margin-bottom: 2px;
+        }
+
+        .meta-value {
+            font-weight: 500;
+        }
+
+        .trust-section {
+            padding: 10px 12px;
+            background: #f9fafb;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            margin-bottom: 20px;
+        }
+
+        .trust-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 6px;
+        }
+
+        .trust-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            color: #4b5563;
+            margin-bottom: 4px;
+        }
+
+        .trust-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .trust-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            margin-right: 6px;
+        }
+
+        .trust-dot.safe {
+            background: #22c55e;
+        }
+
+        .trust-dot.check {
+            background: #3b82f6;
+        }
+
+        .trust-dot.clean {
+            background: #a855f7;
+        }
+
+        .download-wrap {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 280px;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            text-decoration: none;
+        }
+
+        .download-btn:hover {
+            opacity: 0.9;
+        }
+
+        .download-btn:active {
+            opacity: 0.85;
+        }
+
+        .download-btn-ios {
+            background: #111827;
+            color: #fff;
+        }
+
+        .download-btn-android {
+            background: #01875f;
+            color: #fff;
+        }
+
+        .btn-icon {
+            margin-right: 8px;
+        }
+
+        .btn-icon svg {
+            width: 20px;
+            height: 20px;
+            vertical-align: middle;
+        }
+
+        .other-device-msg {
+            font-size: 14px;
+            color: #6b7280;
+            text-align: center;
+            padding: 16px;
+            margin-bottom: 20px;
+            background: #f9fafb;
+            border-radius: 10px;
+        }
+
+        .other-device-links {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+
+        .other-device-links .download-btn {
+            max-width: 140px;
+        }
+
+        .section-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .version-list {
+            list-style: none;
+            margin-bottom: 24px;
+        }
+
+        .version-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .version-item:last-child {
+            border-bottom: none;
+        }
+
+        .version-num {
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 4px;
+        }
+
+        .version-date {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-bottom: 6px;
+        }
+
+        .version-download {
+            font-size: 13px;
+        }
+
+        .version-download a {
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .version-download a:hover {
+            text-decoration: underline;
+        }
+
+        .changelog-list {
+            list-style: none;
+            margin-bottom: 24px;
+        }
+
+        .changelog-item {
+            padding: 14px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .changelog-item:last-child {
+            border-bottom: none;
+        }
+
+        .changelog-version {
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .changelog-content {
+            font-size: 13px;
+            color: #6b7280;
+            line-height: 1.7;
+        }
+
+        .changelog-content ul {
+            padding-left: 18px;
+        }
+
+        .changelog-content li {
+            margin-bottom: 4px;
+        }
+
+        .tips {
+            margin-top: 18px;
+            padding: 14px;
+            background: #f9fafb;
+            border-radius: 10px;
+            font-size: 13px;
+            color: #6b7280;
+            line-height: 1.7;
+            margin-bottom: 22px;
+        }
+
+        .tips-title {
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 8px;
+        }
+
+        .tips ol {
+            padding-left: 18px;
+        }
+
+        .tips li {
+            margin-bottom: 4px;
+        }
+
+        .ios-help {
+            margin-bottom: 24px;
+        }
+
+        .ios-help-step {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .ios-help-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .ios-help-num {
+            flex-shrink: 0;
+            width: 22px;
+            height: 22px;
+            border-radius: 999px;
+            background: #111827;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2px;
+        }
+
+        .ios-help-body {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .ios-help-step-title {
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 4px;
+            font-size: 14px;
+        }
+
+        .ios-help-step-desc {
+            font-size: 13px;
+            color: #6b7280;
+            line-height: 1.7;
+        }
+
+        .ios-help-step-desc ol {
+            padding-left: 18px;
+            margin-top: 4px;
+        }
+
+        .ios-help-step-desc li {
+            margin-bottom: 2px;
+        }
+
+        .ios-help-note {
+            margin-top: 14px;
+            padding: 10px 12px;
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: 8px;
+            font-size: 12px;
+            color: #92400e;
+            line-height: 1.6;
+        }
+
+        .ios-help-warn {
+            margin-bottom: 16px;
+            padding: 12px 12px 12px 28px;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #dc2626;
+            font-weight: 600;
+            line-height: 1.7;
+            list-style: disc;
+        }
+
+        .ios-help-warn li + li {
+            margin-top: 8px;
+        }
+
+        .ios-help-faq {
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px dashed #e5e7eb;
+        }
+
+        .ios-help-faq-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .ios-help-faq-item {
+            font-size: 12px;
+            color: #6b7280;
+            line-height: 1.65;
+            margin-bottom: 6px;
+        }
+
+        .ios-help-faq-item strong {
+            color: #374151;
+        }
+
+        /* iOS 安装帮助弹窗 */
+        .ios-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .ios-modal-mask {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+        }
+
+        .ios-modal-panel {
+            position: relative;
+            width: 100%;
+            max-width: 420px;
+            max-height: 88vh;
+            background: #fff;
+            border-radius: 16px 16px 0 0;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .ios-modal-header {
+            flex-shrink: 0;
+            padding: 16px 20px 12px;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .ios-modal-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: #111827;
+            text-align: center;
+        }
+
+        .ios-modal-subtitle {
+            margin-top: 4px;
+            font-size: 12px;
+            color: #9ca3af;
+            text-align: center;
+        }
+
+        .ios-modal-body {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 16px 20px 8px;
+        }
+
+        .ios-modal-footer {
+            flex-shrink: 0;
+            padding: 12px 20px calc(12px + env(safe-area-inset-bottom, 0px));
+            border-top: 1px solid #e5e7eb;
+            background: #fff;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .ios-modal-continue {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 12px;
+            background: #111827;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .ios-modal-continue:active {
+            opacity: 0.88;
+        }
+
+        .ios-help-img {
+            margin: 10px 0 4px;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #f9fafb;
+            border: 1px dashed #d1d5db;
+        }
+
+        .ios-help-img img {
+            width: 100%;
+            display: block;
+        }
+
+        .ios-help-img img.loaded {
+            border: none;
+        }
+
+        .ios-help-img img.loaded + .ios-help-img-ph {
+            display: none;
+        }
+
+        .ios-help-img-ph {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 140px;
+            padding: 20px 16px;
+            text-align: center;
+            font-size: 12px;
+            color: #9ca3af;
+            line-height: 1.6;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* 微信内置浏览器提示 */
+        .wechat-tip {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.82);
+            padding: 16px 20px;
+        }
+
+        .wechat-tip-arrow {
+            position: absolute;
+            top: 8px;
+            right: 18px;
+            width: 72px;
+            height: 72px;
+            color: #fff;
+        }
+
+        .wechat-tip-content {
+            margin-top: 88px;
+            padding: 0 12px;
+            color: #fff;
+            text-align: center;
+        }
+
+        .wechat-tip-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .wechat-tip-desc {
+            font-size: 15px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.92);
+        }
+
+        .wechat-tip-desc strong {
+            font-weight: 700;
+            font-size: 20px;
+            letter-spacing: 2px;
+        }
+
+        .wechat-tip-sub {
+            margin-top: 16px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+    </style>
+</head>
+<body>
+    <!-- 微信内打开时提示用浏览器访问 -->
+    <div class="wechat-tip hidden" id="wechatTip">
+        <svg class="wechat-tip-arrow" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M8 68 C 28 48, 48 28, 62 14" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+            <path d="M62 14 L 54 12 M 62 14 L 64 22" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="wechat-tip-content">
+            <p class="wechat-tip-title">无法在微信内直接下载</p>
+            <p class="wechat-tip-desc">请点击右上角 <strong>···</strong><br>选择「在浏览器中打开」</p>
+            <p class="wechat-tip-sub">打开后即可正常下载安装</p>
+        </div>
+    </div>
+
+    <!-- iOS 安装帮助弹窗（点击安装时显示） -->
+    <div class="ios-modal hidden" id="iosInstallModal">
+        <div class="ios-modal-mask" onclick="hideIOSInstallModal()"></div>
+        <div class="ios-modal-panel">
+            <div class="ios-modal-header">
+                <div class="ios-modal-title">iOS 安装帮助</div>
+                <div class="ios-modal-subtitle">请按以下步骤完成安装</div>
+            </div>
+            <div class="ios-modal-body ios-help">
+                <ul class="ios-help-warn">
+                    <li>升级或重新安装时，请先卸载原 APP，再安装新版本。</li>
+                    <li>若安装后使用过程中出现 APP 闪退、打不开等情况，请卸载后重新安装。</li>
+                </ul>
+                <div class="ios-help-step">
+                    <span class="ios-help-num">1</span>
+                    <div class="ios-help-body">
+                        <div class="ios-help-step-title">下载并安装</div>
+                        <div class="ios-help-step-desc">
+                            点击底部「继续安装」后，按系统提示完成下载。请保持网络畅通，等待桌面出现应用图标。
+                        </div>
+
+                    </div>
+                </div>
+                <div class="ios-help-step">
+                    <span class="ios-help-num">2</span>
+                    <div class="ios-help-body">
+                        <div class="ios-help-step-title">信任企业开发者</div>
+                        <div class="ios-help-step-desc">
+                            首次提示「未受信任的企业级开发者」，请依次操作：
+                            <ol>
+                                <li>打开「设置」→「通用」</li>
+                                <li>进入「VPN 与设备管理」（或「描述文件与设备管理」）</li>
+                                <li>在「企业级 App」下找到企业开发者名称</li>
+                                <li>点击「信任」并确认</li>
+                            </ol>
+                        </div>
+                        <div class="ios-help-img">
+                            <img src="static/images/ios-help/step2-trust-1.png" alt="步骤2：进入设备管理" onload="this.classList.add('loaded')">
+                            <div class="ios-help-img-ph">图片占位<br>static/images/ios-help/step2-trust-1.png</div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="ios-help-step">
+                    <span class="ios-help-num">3</span>
+                    <div class="ios-help-body">
+                        <div class="ios-help-step-title">重启手机</div>
+                        <div class="ios-help-step-desc">
+                            选择「允许并重新启动」，iOS 18以上系统需重启 iPhone 才能正常打开应用。
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="ios-help-step">
+                    <span class="ios-help-num">4</span>
+                    <div class="ios-help-body">
+                        <div class="ios-help-step-title">打开应用</div>
+                        <div class="ios-help-step-desc">
+                            返回桌面，点击「工程智慧审计」图标即可使用。
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="ios-help-faq">
+                    <div class="ios-help-faq-title">常见问题</div>
+                    <div class="ios-help-faq-item"><strong>找不到企业开发者？</strong> 请先完成安装，安装成功后再进入「VPN 与设备管理」查看。</div>
+                    <div class="ios-help-faq-item"><strong>信任后仍打不开？</strong> 请先重启 iPhone 后再试。</div>
+                </div>
+            </div>
+            <div class="ios-modal-footer">
+                <button type="button" class="ios-modal-continue" onclick="confirmIOSInstall()">继续安装</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="app-icon">
+            <img src="static/images/logo.png" alt="工程智慧审计">
+        </div>
+
+        <h1 class="app-name" id="appName">工程智慧审计</h1>
+        <p class="app-version" id="appVersion">版本 1.0.0</p>
+
+        <!-- 关键信息：版本 / 发布时间 / 大小 -->
+        <div class="app-meta">
+            <div class="meta-item">
+                <span class="meta-label">最新版本</span>
+                <span class="meta-value" id="metaVersion">1.0.0</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">发布时间</span>
+                <span class="meta-value" id="metaReleaseDate">2026-07-03</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">应用大小</span>
+                <span class="meta-value" id="metaSize">约 118 MB</span>
+            </div>
+        </div>
+
+        <!-- 信任与安全说明 -->
+        <div class="trust-section">
+            <div class="trust-title">安全与合规</div>
+            <ul class="trust-list">
+                <li class="trust-item">
+                    <span class="trust-dot safe"></span>
+                    已通过多款安全引擎检测，无恶意代码
+                </li>
+                <li class="trust-item">
+                    <span class="trust-dot check"></span>
+                    安装包哈希校验一致，确保来源可追溯
+                </li>
+                <li class="trust-item">
+                    <span class="trust-dot clean"></span>
+                    绿色应用，无捆绑安装和恶意弹窗
+                </li>
+            </ul>
+        </div>
+
+        <div class="download-wrap" id="downloadWrap">
+            <!-- iOS 设备仅显示 iOS 下载 -->
+            <a href="javascript:void(0);" class="download-btn download-btn-ios hidden" id="iosBtn" onclick="handleIOSDownload()">
+                <span class="btn-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                    </svg>
+                </span>
+                立即安装
+            </a>
+
+            <!-- Android 设备仅显示 Android 下载 -->
+            <a href="javascript:void(0);" class="download-btn download-btn-android hidden" id="androidBtn" onclick="handleAndroidDownload()">
+                <span class="btn-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85-.29-.15-.65-.06-.83.22l-1.88 3.24c-2.86-1.21-6.08-1.21-8.94 0L5.65 5.67c-.19-.29-.58-.38-.87-.2-.28.18-.37.54-.22.83L6.4 9.48C3.3 11.25 1.28 14.44 1 18h22c-.28-3.56-2.3-6.75-5.4-8.52zM7 15.25c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zm10 0c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/>
+                    </svg>
+                </span>
+                立即安装
+            </a>
+
+            <!-- 非 iOS/Android 时显示 -->
+            <div class="other-device-msg hidden" id="otherDeviceMsg">
+                请使用 iOS 或 Android 手机访问，或选择对应平台下载：
+            </div>
+            <div class="other-device-links hidden" id="otherDeviceLinks">
+                <a href="javascript:void(0);" class="download-btn download-btn-ios" onclick="handleIOSDownload()">iOS 下载</a>
+                <a href="javascript:void(0);" class="download-btn download-btn-android" onclick="handleAndroidDownload()">立即安装</a>
+            </div>
+        </div>
+
+        <div class="tips hidden" id="androidTips">
+            <div class="tips-title">Android 安装说明</div>
+            <ol>
+                <li>点击下载，下载完成后点击安装</li>
+                <li>若提示「未知来源」，请在设置中允许安装</li>
+            </ol>
+        </div>
+
+        <!-- 更新日志（对用户隐藏，源码与配置保留） -->
+        <div class="hidden" id="changelogSection">
+            <div class="section-title">更新日志</div>
+            <div class="changelog-list" id="changelogList"></div>
+        </div>
+
+        <!-- 版本历史（对用户隐藏，源码与配置保留） -->
+        <div class="hidden" id="versionHistorySection">
+            <div class="section-title">版本历史</div>
+            <ul class="version-list" id="versionList"></ul>
+        </div>
+    </div>
+
+    <script>
+        // ==================== 配置 ====================
+        const APP_CONFIG = {
+            name: '工程智慧审计',
+            version: '1.0.0',
+            releaseDate: '2026-07-03',
+            size: '约 118 MB',
+            ios: {
+                plistUrl: '/manifest.plist',
+                ipaUrl: '/ios.ipa'
+            },
+            android: {
+                apkUrl: 'https://app.starvir.com/1.0.0(2026070301).apk'
+            },
+            // 版本历史：每个版本含 version、date、iosUrl、androidUrl
+            versionHistory: [
+                { version: '1.0.0(2026070301)', date: '2026-07-03', iosUrl: '', androidUrl: 'https://app.starvir.com/1.0.0(2026070301).apk' },
+                { version: '1.0.0(2026060301)', date: '2026-06-03', iosUrl: '', androidUrl: 'https://app.starvir.com/1.0.0(2026060301).apk' },
+                { version: '1.0.0(2026052201)', date: '2026-05-22', iosUrl: '', androidUrl: 'https://app.starvir.com/1.0.0(2026052201).apk' },
+                { version: '1.0.0(2026051201)', date: '2026-05-12', iosUrl: '', androidUrl: 'https://app.starvir.com/1.0.0(2026051201).apk' },
+                { version: '1.0.0(2026040701)', date: '2026-04-07', iosUrl: '', androidUrl: 'https://app.starvir.com/1.0.0(2026040701).apk' },
+                { version: '1.0.0(2026032703)', date: '2026-03-27', iosUrl: '', androidUrl: 'https://app.starvir.com/1.0.0(2026032703).apk' },
+                { version: '1.0.0(2026032702)', date: '2026-03-27', iosUrl: '', androidUrl: 'https://app.starvir.com/1.0.0(2026032702).apk' },
+                { version: '1.0.0(2026032701)', date: '2026-03-27', iosUrl: '', androidUrl: 'https://app.starvir.com/1.0.0(2026032701).apk' },
+                { version: '1.0.0(2026031001)', date: '2026-03-10', iosUrl: '', androidUrl: 'https://app.starvir.com/1.0.0(2026031001).apk' },
+                { version: '1.0.0(2026030202)', date: '2026-03-02', iosUrl: '', androidUrl: 'https://app.starvir.com/1.0.0(2026030202).apk' },
+                { version: '1.0.0(2026030201)', date: '2026-03-02', iosUrl: '', androidUrl: 'https://app.starvir.com/1.0.0(2026030201).apk' },
+                { version: '1.0.0(2026022601)', date: '2026-02-26', iosUrl: '', androidUrl: 'https://app.starvir.com/1.0.0(2026022601).apk' },
+                { version: '1.0.0(2026022501)', date: '2026-02-25', iosUrl: '', androidUrl: 'https://app.starvir.com/1.0.0(2026022501).apk' },
+                { version: '1.0.0(2026021201)', date: '2026-02-12', iosUrl: '', androidUrl: 'https://app.starvir.com/1.0.0(2026021201).apk' },
+                { version: '1.0.0(2026021101)', date: '2026-02-11', iosUrl: '', androidUrl: 'https://app.starvir.com/1.0.0(2026021101).apk' },
+                { version: '1.0.0(2026021001)', date: '2026-02-10', iosUrl: '', androidUrl: 'https://app.starvir.com/1.0.0(2026021001).apk' },
+                { version: '1.0.0(2026013101)', date: '2026-01-29', iosUrl: '', androidUrl: 'https://app.starvir.com/1.0.0(2026013101).apk' }
+            ],
+            // 更新日志：每个版本含 version、date、items
+            changelog: [
+                {
+                    version: '1.0.0',
+                    date: '2026-07-03(build2026070301)',
+                    items: [
+    '1. 部分任务现场勘测页面新增「向施工单位发起勘测时间」选择，默认今天',
+    '2. 结束勘测时按要求填写勘测发起时间（部分任务无需填写）',
+    '3. 结束勘测需至少上传一张现场图片'
+]
+                },
+                {
+                    version: '1.0.0',
+                    date: '2026-06-03(build2026060301)',
+                    items: [
+
+    '1. 接口增加创建日期，临时列表排版与现场一致，列表高度为自动',
+    '2. 接入新版本创建临时任务接口，无 proConId 进勘测页时自动补建'
+]
+                },
+                {
+                    version: '1.0.0',
+                    date: '2026-05-22(build2026052201)',
+                    items: [
+
+    '1. 修改登录页面（使用最新背景图素材实现：增加背景网格移动特效，标题Logo高光扫描特效，登录按钮边框流光渐变特效，标题字体修改为鸿蒙无衬线粗体）',
+]
+                },
+                {
+                    version: '1.0.0',
+                    date: '2026-05-12(build2026051201)',
+                    items: [
+
+    '1. iOS前置拍照问题修复',
+    '2. 个人页面底部增加备案号信息'
+]
+                },
+                {
+                    version: '1.0.0',
+                    date: '2026-04-23(build2026042301)(ios)',
+                    items: [
+
+    '1. 添加缺失的IOS设备'
+]
+                },
+                {
+                    version: '1.0.0',
+                    date: '2026-04-07(build2026040701)',
+                    items: [
+
+    '1. 修改接口地址为域名地址'
+]
+                },
+                {
+                    version: '1.0.0',
+                    date: '2026-03-27(build2026032703)',
+                    items: [
+
+    '1. 删除任务列表页面，项目列表直接跳转到现场勘测（已结束状态）'
+]
+                },
+                {
+                    version: '1.0.0',
+                    date: '2026-03-27(build2026032702)',
+                    items: [
+
+    '1. 修改首页项目数量统计显示字段',
+  '2. 新增任务列表页 getSceneTaskList，从项目跳转；现场勘测只读',
+  '3. 无轨迹点地图：本机定位优先，失败或无权限则合肥默认点',
+  '4. 移除项目页临时项目入口、更新时间筛选'
+]
+                },
+                {
+                    version: '1.0.0',
+                    date: '2026-03-27(build2026032701)',
+                    items: [
+
+    '1. 401/会话失效：弹窗清 token，确定后跳转登录；router 抑制自动重定向',
+  '2. 勘测：前置拍照压缩、FaceApi SM2 人脸核验',
+  '3. 我的页：运维联系方式与拨号'
+]
+                },
+                {
+                    version: '1.0.0',
+                    date: '2026-03-10(build2026031001)',
+                    items: [
+
+    '1. 修改user-agent（包名;版本;系统;设备;开发平台;网络;语言）',
+  '2. 登录密码增加隐藏/显示功能',
+  '3. 修改腾讯地图key'
+]
+                },
+                {
+                    version: '1.0.0',
+                    date: '2026-03-02(build2026030202)',
+                    items: [
+
+    '1. 首页顶部增加通知信封图标，根据接口是否有通知控制显示',
+  '2. 点击信封图标可手动弹出通知弹窗',
+  '3. 自动弹窗与手动触发复用通知方法'
+]
+                },
+                 {
+                    version: '1.0.0',
+                    date: '2026-03-02(build2026030201)',
+                    items: [
+
+    '1. 新增首页通知弹窗功能',
+  '2. 新增意见反馈功能'
+]
+                },
+                {
+                    version: '1.0.0',
+                    date: '2026-02-26(build2026022601)',
+                    items: [
+
+    '1. 修改加密请求方式',
+  '2. 优化页面更新机制'
+]
+                },
+                {
+                    version: '1.0.0',
+                    date: '2026-02-25(build2026022501)',
+                    items: [
+  '1. 优化401跳转',
+  '2. 增加临时任务删除接口和功能',
+  '3. 根据产品需求修改项目展示内容',
+  '4. 更名为工程智慧审计'
+]
+                },
+                {
+                    version: '1.0.0',
+                    date: '2026-02-12(build2026021201)',
+                    items: [
+  '1. 现场勘测页面：修改暂无操作日志的显示UI',
+  '2. 去掉现场勘测的相册上传功能，只能通过拍照上传',
+  '3. 优化现场勘测地理位置权限获取流程',
+  '4. 修改腾讯地图绘图错误问题',
+  '5. 修改操作记录电线输入弹窗被键盘遮挡问题',
+  '6. 实现用户权限和派单显示的关联'
+]
+                },
+                {
+                    version: '1.0.0',
+                    date: '2026-02-11(build2026021101)',
+                    items: [
+  '1. 现场勘测：kcStatus 为 0 或 null 时先显示开始勘测/继续勘测按钮，点击后再显示完整内容',
+  '2. 现场勘测：用 proConId_ssId 记录是否点过开始勘测，结束勘测提交成功后清除',
+  '3. 现场勘测：kcStatus 为 1 时隐藏操作记录、结束按钮、添加图片、删除按钮',
+  '4. 现场勘测：上传图片时显示上传中 loading，使用进入页面时的定位不再重复请求',
+  '5. 现场勘测：结束现场勘测前增加确认弹窗',
+  '6. 任务详情接口与保存现场数据支持 ssId、proConId',
+  '7. 临时任务列表改为接口拉取数据',
+  '8. 任务日志按时间降序，最新在最上',
+  '9. 派单成功后将派单数据追加到现场列表顶部',
+  '10. 接入腾讯地图SDK，打包体积增加'
+]
+                },
+                {
+                    version: '1.0.0',
+                    date: '2026-02-10(build2026021001)',
+                    items: [
+                        '基本完成接入API接口，可进行api数据调试',
+                    ]
+                },
+                {
+                    version: '1.0.0',
+                    date: '2026-01-29',
+                    items: [
+                        '静态演示版，部分UI未完成',
+                    ]
+                }
+            ],
+        };
+        // ==================== 配置结束 ====================
+
+        function detectDevice() {
+            const ua = navigator.userAgent;
+            return {
+                isIOS: /iPhone|iPad|iPod/i.test(ua),
+                isAndroid: /Android/i.test(ua),
+                isWeChat: /MicroMessenger/i.test(ua)
+            };
+        }
+
+        function showWeChatTip() {
+            var tip = document.getElementById('wechatTip');
+            if (tip) tip.classList.remove('hidden');
+        }
+
+        function initPage() {
+            document.getElementById('appName').textContent = APP_CONFIG.name;
+            document.getElementById('appVersion').textContent = '版本 ' + APP_CONFIG.version;
+
+            // 顶部关键信息
+            const metaVersion = document.getElementById('metaVersion');
+            const metaReleaseDate = document.getElementById('metaReleaseDate');
+            const metaSize = document.getElementById('metaSize');
+
+            if (metaVersion) metaVersion.textContent = APP_CONFIG.version || '';
+            if (metaReleaseDate) {
+                const dateFromConfig = APP_CONFIG.releaseDate || (APP_CONFIG.versionHistory && APP_CONFIG.versionHistory[0] && APP_CONFIG.versionHistory[0].date);
+                if (dateFromConfig) metaReleaseDate.textContent = dateFromConfig;
+            }
+            if (metaSize && APP_CONFIG.size) metaSize.textContent = APP_CONFIG.size;
+
+            const device = detectDevice();
+            const iosBtn = document.getElementById('iosBtn');
+            const androidBtn = document.getElementById('androidBtn');
+            const otherMsg = document.getElementById('otherDeviceMsg');
+            const otherLinks = document.getElementById('otherDeviceLinks');
+            const androidTips = document.getElementById('androidTips');
+
+            if (device.isIOS) {
+                iosBtn.classList.remove('hidden');
+                androidBtn.classList.add('hidden');
+                otherMsg.classList.add('hidden');
+                otherLinks.classList.add('hidden');
+                androidTips.classList.add('hidden');
+            } else if (device.isAndroid) {
+                iosBtn.classList.add('hidden');
+                androidBtn.classList.remove('hidden');
+                otherMsg.classList.add('hidden');
+                otherLinks.classList.add('hidden');
+                androidTips.classList.remove('hidden');
+            } else {
+                iosBtn.classList.add('hidden');
+                androidBtn.classList.add('hidden');
+                otherMsg.classList.remove('hidden');
+                otherLinks.classList.remove('hidden');
+                androidTips.classList.add('hidden');
+            }
+
+            renderVersionHistory();
+            renderChangelog();
+        }
+
+        function renderVersionHistory() {
+            const list = document.getElementById('versionList');
+            const device = detectDevice();
+            const cfg = APP_CONFIG.versionHistory || [];
+
+            list.innerHTML = cfg.map(function (v) {
+                let link = '';
+                if (device.isIOS && v.iosUrl) {
+                    link = '<a href="' + v.iosUrl + '" target="_blank">iOS 下载</a>';
+                } else if (device.isAndroid && v.androidUrl) {
+                    link = '<a href="' + v.androidUrl + '" target="_blank">Android 下载</a>';
+                } else {
+                    var a = v.iosUrl ? '<a href="' + v.iosUrl + '" target="_blank">iOS</a>' : '';
+                    var b = v.androidUrl ? '<a href="' + v.androidUrl + '" target="_blank">Android</a>' : '';
+                    link = a && b ? a + ' | ' + b : a || b;
+                }
+                if (!link) link = '—';
+                return '<li class="version-item">' +
+                    '<div class="version-num">' + v.version + '</div>' +
+                    '<div class="version-date">' + v.date + '</div>' +
+                    '<div class="version-download">' + link + '</div>' +
+                    '</li>';
+            }).join('');
+        }
+
+        function renderChangelog() {
+            const wrap = document.getElementById('changelogList');
+            const cfg = APP_CONFIG.changelog || [];
+
+            wrap.innerHTML = cfg.map(function (c) {
+                const items = (c.items || []).map(function (i) { return '<li>' + i + '</li>'; }).join('');
+                return '<div class="changelog-item">' +
+                    '<div class="changelog-version">' + c.version + ' <span style="font-weight:400;color:#9ca3af">' + c.date + '</span></div>' +
+                    '<div class="changelog-content"><ul>' + items + '</ul></div>' +
+                    '</div>';
+            }).join('');
+        }
+
+        function showIOSInstallModal() {
+            var modal = document.getElementById('iosInstallModal');
+            if (!modal) return;
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hideIOSInstallModal() {
+            var modal = document.getElementById('iosInstallModal');
+            if (!modal) return;
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function startIOSInstall() {
+            var plistUrl = APP_CONFIG.ios.plistUrl || '/manifest.plist';
+            if (plistUrl.indexOf('http') !== 0) {
+                plistUrl = window.location.origin + plistUrl;
+            }
+            if (plistUrl) {
+                window.location.href = 'itms-services://?action=download-manifest&url=' + encodeURIComponent(plistUrl);
+            } else {
+                alert('iOS 安装未配置');
+            }
+        }
+
+        function confirmIOSInstall() {
+            hideIOSInstallModal();
+            startIOSInstall();
+        }
+
+        function handleIOSDownload() {
+            if (detectDevice().isWeChat) {
+                showWeChatTip();
+                return;
+            }
+            if (detectDevice().isIOS) {
+                showIOSInstallModal();
+                return;
+            }
+            startIOSInstall();
+        }
+
+        function handleAndroidDownload() {
+            if (detectDevice().isWeChat) {
+                showWeChatTip();
+                return;
+            }
+            const url = APP_CONFIG.android.apkUrl;
+            if (url) {
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = APP_CONFIG.name + '.apk';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            } else {
+                alert('Android 下载链接未配置');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', initPage);
+    </script>
+</body>
+</html>
