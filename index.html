@@ -705,7 +705,7 @@
         </div>
 
         <h1 class="app-name" id="appName">工程智慧审计</h1>
-        <p class="app-version" id="appVersion">版本 1.0.0</p>
+        <p class="app-version" id="appVersion">版本 1.1.0</p>
 
         <!-- 关键信息：版本 / 发布时间 / 大小 -->
         <div class="app-meta">
@@ -715,7 +715,7 @@
             </div>
             <div class="meta-item">
                 <span class="meta-label">发布时间</span>
-                <span class="meta-value" id="metaReleaseDate">2026-07-03</span>
+                <span class="meta-value" id="metaReleaseDate">2026-08-22</span>
             </div>
             <div class="meta-item">
                 <span class="meta-label">应用大小</span>
@@ -798,19 +798,20 @@
         // ==================== 配置 ====================
         const APP_CONFIG = {
             name: '工程智慧审计',
-            version: '1.0.0',
-            releaseDate: '2026-07-03',
+            version: '1.1.0',
+            releaseDate: '2026-08-22',
             size: '约 118 MB',
             ios: {
                 plistUrl: '/manifest.plist',
                 ipaUrl: '/ios.ipa'
             },
             android: {
-                apkUrl: 'https://app.starvir.com/1.0.0(2026070301).apk'
+                apkUrl: 'https://app.starvir.com/1.1.0.apk'
             },
             // 版本历史：每个版本含 version、date、iosUrl、androidUrl
             versionHistory: [
-                { version: '1.0.0(2026070301)', date: '2026-07-03', iosUrl: '', androidUrl: 'https://app.starvir.com/1.0.0(2026070301).apk' },
+                { version: '1.0.0(2026082201)', date: '2026-08-22', iosUrl: '', androidUrl: 'https://app.starvir.com/1.1.0.apk' },
+				{ version: '1.0.0(2026070301)', date: '2026-07-03', iosUrl: '', androidUrl: 'https://app.starvir.com/1.0.0(2026070301).apk' },
                 { version: '1.0.0(2026060301)', date: '2026-06-03', iosUrl: '', androidUrl: 'https://app.starvir.com/1.0.0(2026060301).apk' },
                 { version: '1.0.0(2026052201)', date: '2026-05-22', iosUrl: '', androidUrl: 'https://app.starvir.com/1.0.0(2026052201).apk' },
                 { version: '1.0.0(2026051201)', date: '2026-05-12', iosUrl: '', androidUrl: 'https://app.starvir.com/1.0.0(2026051201).apk' },
@@ -831,6 +832,17 @@
             // 更新日志：每个版本含 version、date、items
             changelog: [
                 {
+                    version: '1.1.0',
+                    date: '2026-08-22(build2026082201)',
+                    items: [
+    '1. 新增APP启动获取定位权限。',
+    '2. 现场勘测页内增加持续定位，离开勘测页后定位降频到45秒，防止额外耗电；进后台停止',
+    '3. 人脸/拍照 取点信号强的时候优先用准确定位，否则获取持续新鲜度定位点信息；无新鲜点再走GPS旧缓存/IP/固定位置',
+	'4. 拍照上传写入图片 GPS EXIF，写失败仍正常上传，经纬度保留继续走接口字段，人脸识别照片不写EXIF',
+	'5. 冷启动 / 回前台自动检测版本更新并弹窗提示，可直接点击跳转下载页面，根据接口要求支持弹窗关闭方式；同时「我的 → 版本信息」可手动检测'
+]
+                },
+				{
                     version: '1.0.0',
                     date: '2026-07-03(build2026070301)',
                     items: [
